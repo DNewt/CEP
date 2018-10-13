@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
-import TopBar from './TopBar'
+import Drawer from './Drawer'
 
 class Dashboard extends Component {
   render() {
     return (
       <div className="App">
-        <TopBar />
+        <Drawer />
       </div>
     );
   }
