@@ -1,18 +1,4 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Signin from './Signin'
-import Title from './Title'
+import React from 'react';
+import Routes from './routes';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Title />
-       <Signin />
-      </div>
-    );
-  }
-}
-
-export default App;
+export default () => <Routes />
