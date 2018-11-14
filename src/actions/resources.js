@@ -13,7 +13,10 @@ export function createResource(resource) {
 export function getResource(resourceID) {
     return async dispatch => {
         API.get("api", "/resources/" + resourceID).then(response => {
-            console.log(response)
+            dispatch({
+                type: "GOT_RESOURCE",
+                data: response
+            })
         }).catch(error => {
             console.log(error)
         })
@@ -23,7 +26,10 @@ export function getResource(resourceID) {
 export function getResources(organisationID) {
     return async dispatch => {
         API.get("api", "/resources?organisation_id="+organisationID).then(response => {
-            console.log(response)
+            dispatch({
+                type: "GOT_RESOURCES",
+                data: response
+            })
         }).catch(error => {
             console.log(error)
         })

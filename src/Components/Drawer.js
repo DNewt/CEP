@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {LinkContainer} from 'react-router-bootstrap';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -66,7 +67,11 @@ class ResponsiveDrawer extends React.Component {
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        <List><Button> Resources </Button></List>
+        <List>
+          <LinkContainer to={"/dashboard/resources"}>
+            <Button> Resources </Button>
+          </LinkContainer>
+        </List>
         <Divider />
         <List><Button> Logout </Button></List>
         <Divider />
