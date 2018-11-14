@@ -12,6 +12,10 @@ import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 
+import {Switch, Route, Link} from 'react-router-dom';
+
+import Resources from './Resources';
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -66,9 +70,17 @@ class ResponsiveDrawer extends React.Component {
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        <List><Button> Resources </Button></List>
+        <List style={{padding: 0}}>
+          <Link to={"/dashboard/resources"}><Button style={{width: "100%", height: "100%"}}> Resources </Button></Link>
+        </List>
         <Divider />
-        <List><Button> Logout </Button></List>
+        <List style={{padding: 0}}><Button style={{width: "100%", height: "100%"}}> Cost Items </Button></List>
+        <Divider />
+        <List style={{padding: 0}}><Button style={{width: "100%", height: "100%"}}> Foreign Currencies </Button></List>
+        <Divider />
+        <List style={{padding: 0}}><Button style={{width: "100%", height: "100%"}}> Building Blocks </Button></List>
+        <Divider />
+        <List style={{padding: 0}}><Button style={{width: "100%", height: "100%"}}> Logout </Button></List>
         <Divider />
       </div>
     );
@@ -119,7 +131,9 @@ class ResponsiveDrawer extends React.Component {
         </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          
+          <Switch>
+            <Route exact path="/dashboard/resources" exact render = {() => <Resources />} />          
+          </Switch>
         </main>
       </div>
     );
