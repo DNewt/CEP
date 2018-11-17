@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
+import AddCostItemForm from './AddCostItemForm'
 
 class AddCostItem extends Component {
     render () {
         return (
-            <div>cost items</div>
+            <div>
+                <AddCostItemForm />
+            </div>
         )
     }
 }

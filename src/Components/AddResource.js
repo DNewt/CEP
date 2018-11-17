@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
+import AddResourceForm from './AddResourceForm'
 
 class AddResource extends Component {
     render () {
         return (
-            <div>resources</div>
+            <div>
+                <AddResourceForm />
+            </div>
         )
     }
 }

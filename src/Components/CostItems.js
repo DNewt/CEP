@@ -7,6 +7,11 @@ import Modal from '@material-ui/core/Modal'
 import PropTypes from 'prop-types'
 import AddCostItem from './AddCostItem'
 
+const top =  window.innerHeight;
+const left = window.innerWidth;
+
+
+
 class CostItems extends Component {
 
     constructor(props) {
@@ -23,10 +28,12 @@ class CostItems extends Component {
     render () {
         const {classes} = this.props
         let style = {
-            margin: "auto"
+            top: `30%`,
+            left: `30%`
         }
         
         return (
+            
             <div>
                 <CostItemList />
                 <Button
@@ -37,7 +44,6 @@ class CostItems extends Component {
 
 
                 <Modal
-                    style={{justifyContent:'center'}}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                     open={this.state.addingCostItem}

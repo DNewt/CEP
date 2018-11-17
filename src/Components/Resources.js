@@ -23,7 +23,8 @@ class Resources extends Component {
     render () {
         const {classes} = this.props
         let style = {
-            margin: "auto"
+            top: `30%`,
+            left: `30%`
         }
         
         return (
