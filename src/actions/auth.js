@@ -1,13 +1,16 @@
 // TODO: convert all the alerts to dispatches
 import { Auth } from "aws-amplify";
 
-export function login(user, pass) {
+export function login(username, pass) {
     return async dispatch => {
         try {
-            await Auth.signIn(user, pass);
-            alert("Logged in");
+            var user = await Auth.signIn(username, pass);
+            dispatch({
+                type: "LOGIN_SUCCESS",
+                user: user
+            })
         } catch (e) {
-            alert(e.message);
+            alert(e);
         }
     }
 }

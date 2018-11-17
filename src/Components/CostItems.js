@@ -1,30 +1,23 @@
 import React, { Component } from 'react'
-import ResourceList from './ResourceList'
+import CostItemList from './CostItemList'
 
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Modal from '@material-ui/core/Modal'
 import PropTypes from 'prop-types'
-import AddResource from './AddResource'
+import AddCostItem from './AddCostItem'
 
-import {getResources} from '../actions/resources'
-import { connect } from 'react-redux';
-
-class Resources extends Component {
+class CostItems extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            addingResource: false
+            addingCostItem: false
         }
     }
 
-    componentDidMount() {
-        this.props.getResources("");
-    }
-
     toggleModal() {
-        this.setState({addingResource: !this.state.addingResource})
+        this.setState({addingCostItem: !this.state.addingCostItem})
     }
 
     render () {
@@ -35,23 +28,23 @@ class Resources extends Component {
         
         return (
             <div>
-                <ResourceList resources={this.props.resources}/>
+                <CostItemList />
                 <Button
                     variant="raised"
                     color="primary"
                     onClick={() => {this.toggleModal()}}
-                >Add Resource</Button>
+                >Add CostItem</Button>
 
 
                 <Modal
                     style={{justifyContent:'center'}}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
-                    open={this.state.addingResource}
+                    open={this.state.addingCostItem}
                     onClose={() => {this.toggleModal()}}
                 >
                     <div className={classes.paper} style={style}>
-                        <AddResource />
+                        <AddCostItem />
                     </div>
                 </Modal>
             </div>
@@ -59,7 +52,7 @@ class Resources extends Component {
     }
 }
 
-Resources.propTypes = {
+CostItems.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
@@ -73,14 +66,4 @@ const styles = theme => ({
     },
 });  
 
-const mapDispatchToProps = {
-    getResources
-}
-
-const mapStateToProps = state => {
-    return {
-        resources: state.resources.resources
-    }
-}
-
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Resources))
+export default withStyles(styles)(CostItems)
