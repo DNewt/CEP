@@ -50,13 +50,12 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'CodeKey', numeric: true, disablePadding: true, label: 'Code/Key' },
-  { id: 'Description', numeric: false, disablePadding: false, label: 'Description' },
-  { id: 'UnitOfMeasure', numeric: false, disablePadding: false, label: 'UnitOfMeasure' },
-  { id: 'DateModified', numeric: false, disablePadding: false, label: 'DateModified' },
-  { id: 'TPApprover', numeric: true, disablePadding: false, label: 'TPApprover' },
-  { id: 'Resource1', numeric: true, disablePadding: false, label: 'Resource1' },
-  { id: 'Resource2', numeric: false, disablePadding: false, label: 'Resource2' }
+  { id: 'code', numeric: true, disablePadding: true, label: 'Code/Key' },
+  { id: 'description', numeric: false, disablePadding: false, label: 'Description' },
+  { id: 'unit', numeric: false, disablePadding: false, label: 'UnitOfMeasure' },
+  { id: 'date', numeric: false, disablePadding: false, label: 'DateModified' },
+  { id: 'tpApprover', numeric: true, disablePadding: false, label: 'TPApprover' },
+  { id: 'resources', numeric: true, disablePadding: false, label: 'Resources' },
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -157,7 +156,7 @@ let EnhancedTableToolbar = props => {
           </Typography>
         ) : (
           <Typography variant="h6" id="tableTitle">
-            Resources
+            Cost Items
           </Typography>
         )}
       </div>
@@ -206,16 +205,24 @@ class EnhancedTable extends React.Component {
     order: 'asc',
     orderBy: 'CodeKey',
     selected: [],
-    data: [
-      createData('0001', 'Circuit Breaker', '?', "10-10-2018", "Dave", 'Circuit Breaker', 'Circuit Breaker'),
-      createData('0002', 'CAT6 40m Cable', 'meters', "14-10-2018", "Jake", 'CAT6 20m Cable', 'CAT6 40m Cable'),
-      createData('0003', 'Ribbon 100m', 'meters', "19-10-2018", "Dave", 'Ribbon 50m', 'Ribbon 100m'),
-      createData('0004', 'Circuit Breaker', '?', "11-10-2018", "Jake", 'Circuit Breaker', 'Circuit Breaker'),
-      createData('0005', 'Shielded 75m','meters', "22-10-2018", "Dave", 'Shielded 100m', 'Shielded 75m'),
-    ],
+    data: [],
     page: 0,
     rowsPerPage: 5,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(nextProps.costItems) !== JSON.stringify(this.props.costItems)) {
+      this.setState({
+        data: nextProps.costItems
+      })
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      data: this.props.costItems || []
+    })
+  }
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -304,14 +311,13 @@ class EnhancedTable extends React.Component {
                         <Checkbox checked={isSelected} />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.CodeKey}
+                        {n.code}
                       </TableCell>
-                      <TableCell>{n.Description}</TableCell>
-                      <TableCell>{n.UnitOfMeasure}</TableCell>
-                      <TableCell>{n.DateModified}</TableCell>
-                      <TableCell numeric>{n.TPApprover}</TableCell>
-                      <TableCell numeric>{n.Resource1}</TableCell>
-                      <TableCell>{n.Resource2}</TableCell>
+                      <TableCell>{n.description}</TableCell>
+                      <TableCell>{n.unit}</TableCell>
+                      <TableCell>{n.date}</TableCell>
+                      <TableCell>{n.tpApprover}</TableCell>
+                      <TableCell>{n.resources.map(res => {return res+" "})}</TableCell>
                     </TableRow>
                   );
                 })}

@@ -6,7 +6,7 @@ export default function reducer(
     switch (action.type) {
         case 'GET_RESOURCE_SUCCESS':
             return {...state, loading: false, resource: action.data}
-        case 'GET_RESOURCES_SUCESS':
+        case 'GET_RESOURCES_SUCCESS':
             return {...state, loading: false, resources: action.data}
         default:
             return state

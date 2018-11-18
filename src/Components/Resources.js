@@ -7,7 +7,7 @@ import Modal from '@material-ui/core/Modal'
 import PropTypes from 'prop-types'
 import AddResource from './AddResource'
 
-import {getResources} from '../actions/resources'
+import {getResources, createResource} from '../actions/resources'
 import { connect } from 'react-redux';
 
 class Resources extends Component {
@@ -15,12 +15,41 @@ class Resources extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            addingResource: false
+            addingResource: false,
+            code: "",
+            type: "",
+            description: "",
+            currency: "",
+            units: "",
+            cost: "",
+            date: "",
+            tpApprover: ""
         }
     }
 
     componentDidMount() {
         this.props.getResources("");
+    }
+
+    addResource() {
+        var resource = {
+            code: this.state.code,
+            type: this.state.type,
+            description: this.state.description,
+            currency: this.state.currency,
+            units: this.state.units,
+            cost: this.state.cost,
+            date: this.state.date,
+            tpApprover: this.state.tpApprover
+        }
+        this.props.createResource(resource)
+        this.toggleModal()
+    }
+
+    onChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
 
     toggleModal() {
@@ -51,7 +80,31 @@ class Resources extends Component {
                     onClose={() => {this.toggleModal()}}
                 >
                     <div className={classes.paper} style={style}>
-                        <AddResource />
+                        <AddResource 
+                            onChange={this.onChange.bind(this)}
+                            code= {this.state.code}
+                            type={this.state.type}
+                            description= {this.state.description}
+                            currency= {this.state.currency}
+                            units= {this.state.units}
+                            cost= {this.state.cost}
+                            date= {this.state.date}
+                            tpApprover={this.state.tpApprover}
+                        />
+                        <Button
+                            variant="raised"
+                            color="primary"
+                            onClick={() => {this.addResource()}}
+                        >
+                            Submit
+                        </Button>
+                        <Button
+                            variant="raised"
+                            color="primary"
+                            onClick={() => {this.toggleModal()}}
+                        >
+                            Cancel
+                        </Button>
                     </div>
                 </Modal>
             </div>
@@ -74,7 +127,8 @@ const styles = theme => ({
 });  
 
 const mapDispatchToProps = {
-    getResources
+    getResources,
+    createResource
 }
 
 const mapStateToProps = state => {

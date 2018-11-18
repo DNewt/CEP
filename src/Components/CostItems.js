@@ -7,6 +7,9 @@ import Modal from '@material-ui/core/Modal'
 import PropTypes from 'prop-types'
 import AddCostItem from './AddCostItem'
 
+import {connect} from 'react-redux';
+import {getCostItems} from '../actions/costItems';
+
 class CostItems extends Component {
 
     constructor(props) {
@@ -14,6 +17,10 @@ class CostItems extends Component {
         this.state = {
             addingCostItem: false
         }
+    }
+
+    componentDidMount () {
+        this.props.getCostItems()
     }
 
     toggleModal() {
@@ -28,7 +35,7 @@ class CostItems extends Component {
         
         return (
             <div>
-                <CostItemList />
+                <CostItemList costItems={this.props.costItems}/>
                 <Button
                     variant="raised"
                     color="primary"
@@ -66,4 +73,14 @@ const styles = theme => ({
     },
 });  
 
-export default withStyles(styles)(CostItems)
+const mapDispatchToProps = {
+    getCostItems
+}
+
+const mapStateToProps = state => {
+    return {
+        costItems: state.costItems.costItems
+    }
+}
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(CostItems))

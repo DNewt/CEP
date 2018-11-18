@@ -26,7 +26,7 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: "cep",
+        name: "cep-api-prod",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION
       },

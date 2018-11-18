@@ -9,9 +9,9 @@ class Dashboard extends Component {
     return (
       <div className="App">
         <Drawer />
-        <Switch>
+        {/* <Switch>
           <Route path="/dashboard/resources" component={Resources} />
-        </Switch>
+        </Switch> */}
       </div>
     );
   }

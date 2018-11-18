@@ -1,19 +1,20 @@
 import { API } from "aws-amplify";
-
+import {getDummyResources, addDummyResource} from '../data'
 
 export function createResource(resource) {
     return async dispatch => {
-        API.post("cep", "/resources", {
-            body: resource
-        }).catch(error => {
-            console.log(error)
-        })
+        addDummyResource(resource)
+        // API.post("cep-api-prod", "/resources", {
+        //     body: resource
+        // }).catch(error => {
+        //     console.log(error)
+        // })
     }
 }
 
 export function getResource(resourceID) {
     return async dispatch => {
-        API.get("cep", "/resources/" + resourceID).then(response => {
+        API.get("cep-api-prod", "/resources/" + resourceID).then(response => {
             dispatch({
                 type: "GOT_RESOURCE",
                 data: response
@@ -26,21 +27,30 @@ export function getResource(resourceID) {
 
 export function getResources(organisationID) {
 
-    return async dispatch => {
-        API.get("cep", "/resources?organisation_id="+organisationID).then(response => {
+    return dispatch => {
+        getDummyResources().then(resources => {
             dispatch({
-                type: "GOT_RESOURCES",
-                data: response
+                type: "GET_RESOURCES_SUCCESS",
+                data: resources
             })
-        }).catch(error => {
-            console.log(error)
         })
     }
+    
+    // return async dispatch => {
+    //     API.get("cep-api-prod", "/resources?organisation_id="+organisationID).then(response => {
+    //         dispatch({
+    //             type: "GOT_RESOURCES",
+    //             data: response
+    //         })
+    //     }).catch(error => {
+    //         console.log(error)
+    //     })
+    // }
 }
 
 export function editResource(resource) {
     return async dispatch => {
-        API.put("cep-api", "/resources/"+resource.resource_id, {
+        API.put("cep-api-prod", "/resources/"+resource.resource_id, {
             body: resource
         }).catch(error => {
             console.log(error)

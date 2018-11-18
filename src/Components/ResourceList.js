@@ -50,14 +50,14 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'CodeKey', numeric: true, disablePadding: true, label: 'Code/Key' },
-  { id: 'Type', numeric: false, disablePadding: false, label: 'Type' },
-  { id: 'Description', numeric: false, disablePadding: false, label: 'Description' },
-  { id: 'Currency', numeric: false, disablePadding: false, label: 'Currency' },
-  { id: 'Unit', numeric: true, disablePadding: false, label: 'Unit' },
-  { id: 'Cost', numeric: true, disablePadding: false, label: 'Cost' },
-  { id: 'DateModified', numeric: false, disablePadding: false, label: 'Date Modified' },
-  { id: 'TPApprover', numeric: false, disablePadding: false, label: 'TP Approver' }
+  { id: 'code', numeric: true, disablePadding: true, label: 'Code/Key' },
+  { id: 'type', numeric: false, disablePadding: false, label: 'Type' },
+  { id: 'description', numeric: false, disablePadding: false, label: 'Description' },
+  { id: 'currency', numeric: false, disablePadding: false, label: 'Currency' },
+  { id: 'units', numeric: true, disablePadding: false, label: 'Unit' },
+  { id: 'cost', numeric: true, disablePadding: false, label: 'Cost' },
+  { id: 'date', numeric: false, disablePadding: false, label: 'Date Modified' },
+  { id: 'tpApprover', numeric: false, disablePadding: false, label: 'TP Approver' }
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -207,16 +207,24 @@ class EnhancedTable extends React.Component {
     order: 'asc',
     orderBy: 'CodeKey',
     selected: [],
-    data: [
-      createData('0001', 'Finance', 'Financial stuff is really cool', 'NZD', 1,5000, "10-10-2018", "Dave"),
-      createData('0002', 'Major Plant', 'Wow what a big major plant', 'NZD', 1, 3000, "14-10-2018", "Jake"),
-      createData('0003', 'Design', 'This thing is designed really well', 'NZD', 1, 2566, "19-10-2018", "Dave"),
-      createData('0004', 'Equipment', 'Some great equipment things', 'NZD', 1, 9876, "11-10-2018", "Jake"),
-      createData('0005', 'Materials', 'You need more materials', 'NZD', 1, 1029, "22-10-2018", "Dave"),
-    ],
+    data: [],
     page: 0,
     rowsPerPage: 5,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(nextProps.resources) !== JSON.stringify(this.props.resources)) {
+      this.setState({
+        data: nextProps.resources
+      })
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      data: this.props.resources || []
+    })
+  }
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -270,7 +278,7 @@ class EnhancedTable extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+    var { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
@@ -305,15 +313,15 @@ class EnhancedTable extends React.Component {
                         <Checkbox checked={isSelected} />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.CodeKey}
+                        {n.code}
                       </TableCell>
-                      <TableCell>{n.Type}</TableCell>
-                      <TableCell>{n.Description}</TableCell>
-                      <TableCell>{n.Currency}</TableCell>
-                      <TableCell numeric>{n.Unit}</TableCell>
-                      <TableCell numeric>{n.Cost}</TableCell>
-                      <TableCell>{n.DateModified}</TableCell>
-                      <TableCell>{n.TPApprover}</TableCell>
+                      <TableCell>{n.type}</TableCell>
+                      <TableCell>{n.description}</TableCell>
+                      <TableCell>{n.currency}</TableCell>
+                      <TableCell numeric>{n.units}</TableCell>
+                      <TableCell numeric>{n.cost}</TableCell>
+                      <TableCell>{n.date}</TableCell>
+                      <TableCell>{n.tpApprover}</TableCell>
                     </TableRow>
                   );
                 })}
