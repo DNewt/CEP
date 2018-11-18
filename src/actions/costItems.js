@@ -3,9 +3,16 @@ import {getDummyCostItems, addDummyCostItem} from '../data'
 
 export function createCostItem(item) {
     return async dispatch => {
-        API.post("api", "/costItems", {
-            body: item
-        })
+        addDummyCostItem(item)
+        // .then(costItems => {
+        //     dispatch({
+        //         type: "GET_COST_ITEMS_SUCCESS",
+        //         data: costItems
+        //     })
+        // })
+        // API.post("api", "/costItems", {
+        //     body: item
+        // })
     }
 }
 

@@ -1,86 +1,91 @@
 import React, {Component} from 'react'
-import Input from '@material-ui/core/Input'
-import InputLabel from '@material-ui/core/InputLabel'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl'
+import TextField from '@material-ui/core/TextField'
+import AddCostItemForm from './AddCostItemForm'
 
 class AddCostItem extends Component {
+
     render () {
+        const { classes } = this.props;
+
         return (
             <div>
                 <div>Add Cost Item</div>
                 <FormControl margin="normal" required fullWidth>
-                    <InputLabel>Code</InputLabel>
-                    <Input 
+                    <TextField 
+                        id="outlined-multiline-flexible"
                         onChange={(e) => {this.props.onChange(e)}}
                         value={this.props.code}
-                        placeholder={"Code"}
+                        label={"Code"}
                         name={"code"}
+                        className={classes.textField}
+                        variant="outlined"
                     />
                 </FormControl>
 
                 <FormControl margin="normal" required fullWidth>
-                    <InputLabel>Type</InputLabel>
-                    <Input 
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.type}
-                        placeholder={"TODO: This needs to be a dropdown of types"}
-                        name={"type"}
-                    />
-                </FormControl>
-
-
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel>Description</InputLabel>
-                    <Input 
+                    <TextField
+                        id="outlined-multiline-flexible"
                         onChange={(e) => {this.props.onChange(e)}}
                         value={this.props.description}
-                        placeholder={"Description"}
+                        label={"Description"}
                         name={"description"}
+                        className={classes.textField}
+                        variant="outlined"
                     />
                 </FormControl>
 
-                <FormControl margin="normal" required fullWidth>                
-                    <InputLabel>Currency</InputLabel>
-                    <Input 
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.currency}
-                        placeholder={"Currency"}
-                        name={"currency"}
-                    />
-                </FormControl>
 
-                <FormControl margin="normal" required fullWidth>                
-                    <InputLabel>Units</InputLabel>
-                    <Input 
+                <FormControl margin="normal" required fullWidth>
+                    <TextField
                         onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.units}
-                        name={"units"}
-                        type={"number"}
+                        value={this.props.unit}
+                        label={"Unit of Measure"}
+                        name={"unit"}
+                        className={classes.textField}
+                        variant="outlined"
                     />
                 </FormControl>
 
                 <FormControl margin="normal" required fullWidth>
-                    <InputLabel>Cost</InputLabel>
-                    <Input 
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.cost}
-                        name={"cost"}
-                        type={"number"}
-                    />
-                </FormControl>
-
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel>TP Approver</InputLabel>
-                    <Input 
+                    <TextField
                         onChange={(e) => {this.props.onChange(e)}}
                         value={this.props.tpApprover}
-                        placeholder={"TP Approver"}
+                        label={"TP Approver"}
                         name={"tpApprover"}
+                        className={classes.textField}
+                        variant="outlined"
                     />
                 </FormControl>
+
+
             </div>
         )
     }
 }
 
-export default AddCostItem
+const styles = theme => ({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+    },
+    dense: {
+      marginTop: 16,
+    },
+    menu: {
+      width: 200,
+    },
+  });
+
+AddCostItem.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+  
+
+export default withStyles(styles)(AddCostItem)

@@ -7,6 +7,8 @@ import Modal from '@material-ui/core/Modal'
 import PropTypes from 'prop-types'
 import AddResource from './AddResource'
 
+import moment from 'moment'
+
 import {getResources, createResource} from '../actions/resources'
 import { connect } from 'react-redux';
 
@@ -39,7 +41,7 @@ class Resources extends Component {
             currency: this.state.currency,
             units: this.state.units,
             cost: this.state.cost,
-            date: this.state.date,
+            date: moment().format('YYYY-MM-DD'),
             tpApprover: this.state.tpApprover
         }
         this.props.createResource(resource)
@@ -59,7 +61,8 @@ class Resources extends Component {
     render () {
         const {classes} = this.props
         let style = {
-            margin: "auto"
+            top: `30`,
+            left: `30%`
         }
         
         return (
