@@ -17,6 +17,7 @@ import {Switch, Route, Link} from 'react-router-dom';
 
 import Resources from './resources/Resources';
 import CostItems from './costItems/CostItems';
+import BuildingBlocks from './buildingBlocks/BuildingBlocks';
 
 const drawerWidth = 240;
 
@@ -80,9 +81,11 @@ class ResponsiveDrawer extends React.Component {
           <Link to={"/dashboard/costitems"}><Button style={{width: "100%", height: "100%"}}> Cost Items </Button></Link>
         </List>
         <Divider />
-        <List style={{padding: 0}}><Button style={{width: "100%", height: "100%"}}> Foreign Currencies </Button></List>
+        <List style={{padding: 0}}>
+          <Link to={"/dashboard/buildingblocks"}><Button style={{width: "100%", height: "100%"}}> Building Blocks </Button></Link>
+        </List>
         <Divider />
-        <List style={{padding: 0}}><Button style={{width: "100%", height: "100%"}}> Building Blocks </Button></List>
+        <List style={{padding: 0}}><Button style={{width: "100%", height: "100%"}}> Foreign Currencies </Button></List>
         <Divider />
         <List style={{padding: 0}}><Button style={{width: "100%", height: "100%"}}> Logout </Button></List>
         <Divider />
@@ -137,7 +140,8 @@ class ResponsiveDrawer extends React.Component {
           <div className={classes.toolbar} />
           <Switch>
             <Route exact path="/dashboard/resources" exact render = {() => <Resources />} />   
-            <Route exact path="/dashboard/costitems" exact render = {() => <CostItems />} />         
+            <Route exact path="/dashboard/costitems" exact render = {() => <CostItems />} />   
+            <Route exact path="/dashboard/buildingblocks" exact render = {() => <BuildingBlocks />} />         
           </Switch>
         </main>
       </div>
