@@ -15,8 +15,8 @@ import Button from '@material-ui/core/Button';
 
 import {Switch, Route, Link} from 'react-router-dom';
 
-import Resources from './Resources';
-import CostItems from './CostItems';
+import Resources from './resources/Resources';
+import CostItems from './costItems/CostItems';
 
 const drawerWidth = 240;
 

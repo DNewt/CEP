@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Resources from './Resources'
+import Resources from './resources/Resources'
 import Drawer from './Drawer'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 

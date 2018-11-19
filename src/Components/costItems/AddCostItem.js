@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl'
 import TextField from '@material-ui/core/TextField'
+import Select from 'react-select'
+import {getDummyResourceOptions} from '../../data'
 import AddCostItemForm from './AddCostItemForm'
 
 class AddCostItem extends Component {
 
     render () {
         const { classes } = this.props;
-
+        var options = getDummyResourceOptions()
         return (
             <div>
                 <div>Add Cost Item</div>
@@ -57,6 +59,21 @@ class AddCostItem extends Component {
                         name={"tpApprover"}
                         className={classes.textField}
                         variant="outlined"
+                    />
+                </FormControl>
+
+                <FormControl margin="normal" required fullWidth>
+                    <Select
+                        onChange={(resources) => {this.props.onAddResource(resources)}}
+                        label={"Resources"}
+                        value={this.props.resources}
+                        name={"resources"}
+                        className={classes.textField}
+                        variant="outlined"
+                        options={options}
+                        placeholder={"Add Resources..."}
+                        isMulti
+
                     />
                 </FormControl>
 

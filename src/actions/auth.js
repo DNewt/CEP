@@ -4,7 +4,7 @@ import { Auth } from "aws-amplify";
 export function login(username, pass) {
     return async dispatch => {
         try {
-            var user = await Auth.signIn(username, pass);
+            var user = {name: "Jake"} // await Auth.signIn(username, pass);
             dispatch({
                 type: "LOGIN_SUCCESS",
                 user: user

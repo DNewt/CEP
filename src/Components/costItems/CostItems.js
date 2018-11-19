@@ -1,50 +1,53 @@
 import React, { Component } from 'react'
-import ResourceList from './ResourceList'
+import CostItemList from './CostItemList'
 
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Modal from '@material-ui/core/Modal'
 import PropTypes from 'prop-types'
-import AddResource from './AddResource'
+import AddCostItem from './AddCostItem'
 
 import moment from 'moment'
 
-import {getResources, createResource} from '../actions/resources'
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
+import {getCostItems, createCostItem} from '../../actions/costItems';
+const top =  window.innerHeight;
+const left = window.innerWidth;
 
-class Resources extends Component {
+
+
+class CostItems extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            addingResource: false,
-            code: "",
-            type: "",
-            description: "",
-            currency: "",
-            units: "",
-            cost: "",
-            date: "",
-            tpApprover: ""
+            addingCostItem: false
         }
     }
 
-    componentDidMount() {
-        this.props.getResources("");
+    componentDidMount () {
+        this.props.getCostItems()
     }
 
-    addResource() {
+    formatResources() {
+        var resources = []
+        for (var i = 0; i < this.state.resources.length; i++) {
+            resources.push(this.state.resources[i].value)
+        }
+        return resources
+    }
+
+    addCostItem() {
         var resource = {
             code: this.state.code,
-            type: this.state.type,
             description: this.state.description,
-            currency: this.state.currency,
-            units: this.state.units,
-            cost: this.state.cost,
+            unit: this.state.unit,
             date: moment().format('YYYY-MM-DD'),
-            tpApprover: this.state.tpApprover
+            tpApprover: this.state.tpApprover,
+            resources: this.formatResources()
         }
-        this.props.createResource(resource)
+        this.props.createCostItem(resource)
+        this.props.getCostItems()
         this.toggleModal()
     }
 
@@ -54,8 +57,15 @@ class Resources extends Component {
         })
     }
 
+    onAddResource(resources) {
+        console.log(resources)
+        this.setState({
+            resources: resources
+        })
+    }
+
     toggleModal() {
-        this.setState({addingResource: !this.state.addingResource})
+        this.setState({addingCostItem: !this.state.addingCostItem})
     }
 
     render () {
@@ -66,43 +76,33 @@ class Resources extends Component {
         }
         
         return (
+            
             <div>
-                <ResourceList resources={this.props.resources}/>
+                <CostItemList costItems={this.props.costItems}/>
                 <Button
-                    variant="raised"
+                    variant="contained"
                     color="primary"
                     onClick={() => {this.toggleModal()}}
-                >Add Resource</Button>
+                >Add CostItem</Button>
 
 
                 <Modal
-                    style={{justifyContent:'center'}}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
-                    open={this.state.addingResource}
+                    open={this.state.addingCostItem}
                     onClose={() => {this.toggleModal()}}
                 >
                     <div className={classes.paper} style={style}>
-                        <AddResource 
-                            onChange={this.onChange.bind(this)}
-                            code= {this.state.code}
-                            type={this.state.type}
-                            description= {this.state.description}
-                            currency= {this.state.currency}
-                            units= {this.state.units}
-                            cost= {this.state.cost}
-                            date= {this.state.date}
-                            tpApprover={this.state.tpApprover}
-                        />
+                        <AddCostItem onChange={this.onChange.bind(this)} onAddResource={this.onAddResource.bind(this)}/>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             color="primary"
-                            onClick={() => {this.addResource()}}
+                            onClick={() => {this.addCostItem()}}
                         >
                             Submit
                         </Button>
                         <Button
-                            variant="raised"
+                            variant="contained"
                             color="primary"
                             onClick={() => {this.toggleModal()}}
                         >
@@ -115,7 +115,7 @@ class Resources extends Component {
     }
 }
 
-Resources.propTypes = {
+CostItems.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
@@ -130,14 +130,14 @@ const styles = theme => ({
 });  
 
 const mapDispatchToProps = {
-    getResources,
-    createResource
+    getCostItems,
+    createCostItem
 }
 
 const mapStateToProps = state => {
     return {
-        resources: state.resources.resources
+        costItems: state.costItems.costItems
     }
 }
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Resources))
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(CostItems))

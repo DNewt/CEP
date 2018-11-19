@@ -19,12 +19,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
-let counter = 0;
-function createData(CodeKey, Description, UnitOfMeasure, DateModified, TPApprover, Resource1, Resource2) {
-  counter += 1;
-  return { id: counter, CodeKey, Description, UnitOfMeasure, DateModified, TPApprover, Resource1, Resource2 };
-}
-
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -317,7 +311,7 @@ class EnhancedTable extends React.Component {
                       <TableCell>{n.unit}</TableCell>
                       <TableCell>{n.date}</TableCell>
                       <TableCell>{n.tpApprover}</TableCell>
-                      <TableCell>{n.resources.map(res => {return res+" "})}</TableCell>
+                      <TableCell>{n.resources.map(res => {return res.code+" "})}</TableCell>
                     </TableRow>
                   );
                 })}
