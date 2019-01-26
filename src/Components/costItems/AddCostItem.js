@@ -1,25 +1,42 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
+
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl'
 import TextField from '@material-ui/core/TextField'
+import { Button } from '@material-ui/core';
+
 import Select from 'react-select'
 import {getDummyResourceOptions} from '../../data'
 import AddCostItemForm from './AddCostItemForm'
 
 class AddCostItem extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            code: "",
+            description: "",
+            units: 0,
+            tpApprover: ""
+        }
+    }
+
+    onChange(e) {
+        this.setState({[e.target.name]: e.target.value})
+    }
+
     render () {
         const { classes } = this.props;
         var options = getDummyResourceOptions()
         return (
             <div>
-                <div>Add Cost Item</div>
+                <div>Cost Item</div>
                 <FormControl margin="normal" required fullWidth>
                     <TextField 
                         id="outlined-multiline-flexible"
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.code}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.code}
                         label={"Code"}
                         name={"code"}
                         className={classes.textField}
@@ -30,8 +47,8 @@ class AddCostItem extends Component {
                 <FormControl margin="normal" required fullWidth>
                     <TextField
                         id="outlined-multiline-flexible"
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.description}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.description}
                         label={"Description"}
                         name={"description"}
                         className={classes.textField}
@@ -42,10 +59,10 @@ class AddCostItem extends Component {
 
                 <FormControl margin="normal" required fullWidth>
                     <TextField
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.unit}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.units}
                         label={"Unit of Measure"}
-                        name={"unit"}
+                        name={"units"}
                         className={classes.textField}
                         variant="outlined"
                     />
@@ -53,8 +70,8 @@ class AddCostItem extends Component {
 
                 <FormControl margin="normal" required fullWidth>
                     <TextField
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.tpApprover}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.tpApprover}
                         label={"TP Approver"}
                         name={"tpApprover"}
                         className={classes.textField}
@@ -62,21 +79,9 @@ class AddCostItem extends Component {
                     />
                 </FormControl>
 
-                <FormControl margin="normal" required fullWidth>
-                    <Select
-                        onChange={(resources) => {this.props.onAddResource(resources)}}
-                        label={"Resources"}
-                        value={this.props.resources}
-                        name={"resources"}
-                        className={classes.textField}
-                        variant="outlined"
-                        options={options}
-                        placeholder={"Add Resources..."}
-                        isMulti
-
-                    />
-                </FormControl>
-
+                <Button variant="contained" color="primary" className={classes.button} onClick={(e) => {this.props.createItem(this.state)}}>
+                    Add Cost Item
+                </Button>
 
             </div>
         )

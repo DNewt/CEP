@@ -5,20 +5,35 @@ import FormControl from '@material-ui/core/FormControl'
 import TextField from '@material-ui/core/TextField'
 import Select from 'react-select'
 import {getDummyCostItemOptions} from '../../data'
+import { Button } from '@material-ui/core';
 
 class AddBuildingBlock extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            code: "",
+            description: "",
+            date: "",
+            tpApprover: ""
+        }
+    }
+
+    onChange(e) {
+        this.setState({[e.target.name]: e.target.value})
+    }
 
     render () {
         const { classes } = this.props;
         var options = getDummyCostItemOptions()
         return (
             <div>
-                <div>Add Building Block</div>
+                <div>Building Block</div>
                 <FormControl margin="normal" required fullWidth>
                     <TextField 
                         id="outlined-multiline-flexible"
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.code}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.code}
                         label={"Code"}
                         name={"code"}
                         className={classes.textField}
@@ -29,8 +44,8 @@ class AddBuildingBlock extends Component {
                 <FormControl margin="normal" required fullWidth>
                     <TextField
                         id="outlined-multiline-flexible"
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.description}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.description}
                         label={"Description"}
                         name={"description"}
                         className={classes.textField}
@@ -41,10 +56,10 @@ class AddBuildingBlock extends Component {
 
                 <FormControl margin="normal" required fullWidth>
                     <TextField
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.unit}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.date}
                         label={"DateModified"}
-                        name={"unit"}
+                        name={"date"}
                         className={classes.textField}
                         variant="outlined"
                     />
@@ -52,8 +67,8 @@ class AddBuildingBlock extends Component {
 
                 <FormControl margin="normal" required fullWidth>
                     <TextField
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.tpApprover}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.tpApprover}
                         label={"TP Approver"}
                         name={"tpApprover"}
                         className={classes.textField}
@@ -61,21 +76,9 @@ class AddBuildingBlock extends Component {
                     />
                 </FormControl>
 
-                <FormControl margin="normal" required fullWidth>
-                    <Select
-                        onChange={(costItems) => {this.props.onAddResource(costItems)}}
-                        label={"Cost Items"}
-                        value={this.props.costItems}
-                        name={"Cost Items"}
-                        className={classes.textField}
-                        variant="outlined"
-                        options={options}
-                        placeholder={"Add Cost Items..."}
-                        isMulti
-
-                    />
-                </FormControl>
-
+                <Button variant="contained" color="primary" className={classes.button} onClick={(e) => {this.props.createItem(this.state)}}>
+                    Add Building Block
+                </Button>
 
             </div>
         )

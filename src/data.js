@@ -1,7 +1,7 @@
 let resources = [
     {
         id: "1",
-        code: "FN01",
+        title: "FN01",
         type: "Finance",
         description: "financial stuff is really cool",
         currency: "NZD",
@@ -12,7 +12,7 @@ let resources = [
     },
     {
         id: "2",
-        code: "FN02",
+        title: "FN02",
         type: "Finance",
         description: "financial stuff is really cool",
         currency: "AUD",
@@ -23,7 +23,7 @@ let resources = [
     },
     {
         id: "3",
-        code: "FN03",
+        title: "FN03",
         type: "Finance",
         description: "financial stuff is really cool",
         currency: "USD",
@@ -34,43 +34,160 @@ let resources = [
     },
 ]
 
-let cost_items = [
-    { 
-        id: "1", 
-        code: "0001", 
-        description: "Circuit Breaker", 
-        unit: "?", 
-        date: "2018-10-10", 
-        tpApprover: "Dave", 
-        resources: ["2", "3"]
-    },
-    { 
-        id: "2", 
-        code: "0002", 
-        description: "CAT6 40m Cable", 
-        unit: "m", 
-        date: "2018-10-14", 
-        tpApprover: "Dave", 
-        resources: ["1"]
-    }
-]
+let cost_items = []
+let block_items = []
 
-let block_items = [
-    { 
-        id: "1", 
-        code: "0001", 
-        description: "Circuit Breaker", 
-        date: "2018-10-10", 
-        tpApprover: "Dave", 
-        costItems: ["1", "2"]
+export function getItems(projectID) {
+    var project = getProject(projectID)
+    return project.children
+}
+
+export function addItem(item, projectID) {
+    var project = getProject(projectID)
+    project.children.push(item)
+}
+
+export function createProject (project) {
+    projects.push(project)
+}
+
+export function getProjects () {
+    return projects
+}
+
+export function getProject(projectID) {
+    console.log(projectID)
+    for (var i = 0; i < projects.length; i++) {
+        if (projects[i].id === projectID) {
+            return projects[i]
+        }
+    }
+}
+
+export var projects = [
+    {
+        id: "bb1",
+        name: "Project 1",
+        children: [
+            {
+                id: "bb1",
+                code: "Building Block 1",
+                title: "Building Block 1",        
+                type: "buildingBlock",
+                children: [
+                    {
+                        id: "ci1",
+                        code: "Cost Item 1",
+                        title: "Cost Item 1",                
+                        type: "costItem",
+                        children: [
+                            {
+                                id: "r1",
+                                code: "Resource 1",
+                                title: "Resource 1",
+                                cost: 1000,
+                                units: 1,                        
+                                type: "resource"
+                            },
+                            {
+                                id: "r1",
+                                code: "Resource 2",
+                                title: "Resource 2",
+                                cost: 2000,
+                                units: 2,                        
+                                type: "resource"
+                            }
+                        ]
+                    },
+                    {
+                        id: "ci1",
+                        code: "Cost Item 2",
+                        title: "Cost Item 2",                
+                        type: "costItem",
+                        children: [
+                            {
+                                id: "r1",
+                                code: "Resource 1",
+                                title: "Resource 1",
+                                cost: 500,
+                                units: 3,                        
+                                type: "resource"
+                            },
+                            {
+                                id: "r1",
+                                code: "Resource 2",
+                                title: "Resource 2",
+                                cost: 4000,
+                                units: 1,                        
+                                type: "resource"
+                            },
+                            {
+                                id: "r1",
+                                code: "Resource 3",
+                                title: "Resource 3",
+                                cost: 100,
+                                units: 11,                      
+                                type: "resource"
+                            }
+                        ]
+                    },
+                    {
+                        id: "ci1",
+                        code: "Cost Item 3",
+                        title: "Cost Item 3",                
+                        type: "costItem",
+                        children: [
+                            {
+                                id: "r1",
+                                code: "Resource 1",
+                                title: "Resource 1",
+                                cost: 200,
+                                units: 15,                        
+                                type: "resource"
+                            },
+                            {
+                                id: "r1",
+                                code: "Resource 1",
+                                title: "Resource 1",
+                                cost: 70,
+                                units: 3,                        
+                                type: "resource"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
     },
-    { 
-        id: "2", 
-        code: "0002", 
-        description: "CAT6 40m Cable", 
-        date: "2018-10-14", 
-        tpApprover: "Dave", 
-        costItems: ["1"]
+    {
+        id: "bb2",
+        name: "Project 2",
+        children: [
+            {
+                id: "bb1",
+                code: "Building Block 2",
+                title: "Building Block 2",        
+                type: "buildingBlock",
+                children: [
+                    {
+                        id: "ci1",
+                        code: "Cost Item 1",
+                        title: "Cost Item 1",                
+                        type: "costItem",
+                        children: [
+                            {
+                                id: "r1",
+                                code: "Resource 1",
+                                title: "Resource 1",
+                                cost: 1500,
+                                units: 1,                        
+                                type: "resource"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]
 

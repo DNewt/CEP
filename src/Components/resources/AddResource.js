@@ -1,24 +1,44 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
+
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
+import { Button } from '@material-ui/core';
+
 import AddResourceForm from './AddResourceForm'
 
 class AddResource extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            code: "",
+            type: "",
+            description: "",
+            currency: "",
+            units: 0,
+            cost: 0,
+            tpApprover: ""
+        }
+    }
+
+    onChange(e) {
+        this.setState({[e.target.name]: e.target.value})
+    }
 
     render () {
         const { classes } = this.props;
 
         return (
             <div>
-                <div>Add Resource</div>
+                <div>Resource</div>
                 <FormControl margin="normal" required fullWidth>
                     <TextField 
                         id="outlined-multiline-flexible"
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.code}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.code}
                         label={"Code"}
                         name={"code"}
                         className={classes.textField}
@@ -32,8 +52,8 @@ class AddResource extends Component {
                         label="Type"
                         name="type"
                         className={classes.textField}
-                        value={this.props.type}
-                        onChange={(e) => {this.props.onChange(e)}}
+                        value={this.state.type}
+                        onChange={(e) => {this.onChange(e)}}
                         variant="outlined"
                     >
                     {types.map(option => (
@@ -48,8 +68,8 @@ class AddResource extends Component {
                 <FormControl margin="normal" required fullWidth>
                     <TextField 
                         id="outlined-multiline-flexible"
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.description}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.description}
                         label={"Description"}
                         name={"description"}
                         className={classes.textField}
@@ -60,8 +80,8 @@ class AddResource extends Component {
                 <FormControl margin="normal" required fullWidth>                
                     <TextField 
                         id="outlined-multiline-flexible"
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.currency}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.currency}
                         label={"Currency"}
                         name={"currency"}
                         className={classes.textField}
@@ -72,8 +92,8 @@ class AddResource extends Component {
                 <FormControl margin="normal" required fullWidth>                
                     <TextField 
                         id="outlined-multiline-flexible"
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.units}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.units}
                         name={"units"}
                         label={"Units"}
                         type={"number"}
@@ -85,8 +105,8 @@ class AddResource extends Component {
                 <FormControl margin="normal" required fullWidth>
                     <TextField 
                         id="outlined-multiline-flexible"
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.cost}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.cost}
                         name={"cost"}
                         label={"Cost"}
                         type={"number"}
@@ -98,14 +118,18 @@ class AddResource extends Component {
                 <FormControl margin="normal" required fullWidth>
                     <TextField 
                         id="outlined-multiline-flexible"
-                        onChange={(e) => {this.props.onChange(e)}}
-                        value={this.props.tpApprover}
+                        onChange={(e) => {this.onChange(e)}}
+                        value={this.state.tpApprover}
                         label={"TP Approver"}
                         name={"tpApprover"}
                         className={classes.textField}
                         variant="outlined"
                     />
                 </FormControl>
+
+                <Button variant="contained" color="primary" className={classes.button} onClick={(e) => {this.props.createItem(this.state)}}>
+                    Add Resource
+                </Button>
             </div>
         )
     }

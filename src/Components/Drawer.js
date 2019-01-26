@@ -15,9 +15,9 @@ import Button from '@material-ui/core/Button';
 
 import {Switch, Route, Link} from 'react-router-dom';
 
-import Resources from './resources/Resources';
-import CostItems from './costItems/CostItems';
-import BuildingBlocks from './buildingBlocks/BuildingBlocks';
+import Items from './items/Items';
+import TreeList from './tree/TreeList';
+import TreeDrawer from './tree/TreeDrawer';
 
 const drawerWidth = 240;
 
@@ -74,18 +74,16 @@ class ResponsiveDrawer extends React.Component {
         <div className={classes.toolbar} />
         <Divider />
         <List style={{padding: 0}}>
-          <Link to={"/dashboard/resources"}><Button style={{width: "100%", height: "100%"}}> Resources </Button></Link>
+          <Link to={"/dashboard/items"}>
+            <Button style={{width: "100%", height: "100%"}}> Items </Button>
+          </Link>
         </List>
         <Divider />
         <List style={{padding: 0}}>
-          <Link to={"/dashboard/costitems"}><Button style={{width: "100%", height: "100%"}}> Cost Items </Button></Link>
+          <Link to={"/dashboard/trees"}>
+            <Button style={{width: "100%", height: "100%"}}> Projects </Button>
+          </Link>
         </List>
-        <Divider />
-        <List style={{padding: 0}}>
-          <Link to={"/dashboard/buildingblocks"}><Button style={{width: "100%", height: "100%"}}> Building Blocks </Button></Link>
-        </List>
-        <Divider />
-        <List style={{padding: 0}}><Button style={{width: "100%", height: "100%"}}> Foreign Currencies </Button></List>
         <Divider />
         <List style={{padding: 0}}><Button style={{width: "100%", height: "100%"}}> Logout </Button></List>
         <Divider />
@@ -139,9 +137,9 @@ class ResponsiveDrawer extends React.Component {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
-            <Route exact path="/dashboard/resources" exact render = {() => <Resources />} />   
-            <Route exact path="/dashboard/costitems" exact render = {() => <CostItems />} />   
-            <Route exact path="/dashboard/buildingblocks" exact render = {() => <BuildingBlocks />} />         
+            <Route exact path="/dashboard/items" exact render = {() => <Items />} />   
+            <Route exact path="/dashboard/trees" exact render = {() => <TreeList />} />  
+            <Route exact path="/dashboard/trees/:id" exact render = {() => <TreeDrawer />} />         
           </Switch>
         </main>
       </div>
