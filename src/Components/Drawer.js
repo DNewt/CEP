@@ -16,8 +16,8 @@ import Button from '@material-ui/core/Button';
 import {Switch, Route, Link} from 'react-router-dom';
 
 import Items from './items/Items';
-import TreeList from './tree/TreeList';
-import TreeDrawer from './tree/TreeDrawer';
+import ProjectList from './projects/ProjectList';
+import ProjectDrawer from './projects/ProjectDrawer';
 
 const drawerWidth = 240;
 
@@ -32,11 +32,11 @@ const styles = theme => ({
     width: '100%',
   },
   appBar: {
-    position: 'absolute',
-    marginLeft: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
+    // position: 'absolute',
+    // marginLeft: 0,
+    // [theme.breakpoints.up('md')]: {
+    //   width: `calc(100% - ${drawerWidth}px)`,
+    // },
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
@@ -80,7 +80,7 @@ class ResponsiveDrawer extends React.Component {
         </List>
         <Divider />
         <List style={{padding: 0}}>
-          <Link to={"/dashboard/trees"}>
+          <Link to={"/dashboard/projects"}>
             <Button style={{width: "100%", height: "100%"}}> Projects </Button>
           </Link>
         </List>
@@ -105,9 +105,18 @@ class ResponsiveDrawer extends React.Component {
             <Typography variant="h6" color="inherit" noWrap>
               Cost Estimation Program
             </Typography>
+            <div style={{marginLeft: 20}}>
+              <Link to={"/dashboard/projects"} style={{textDecoration: 'none', color: 'white'}}>
+                <Button color="inherit">Projects</Button>
+              </Link>
+              <Link to={"/dashboard/items"} style={{textDecoration: 'none', color: 'white'}}>
+                <Button color="inherit">Items</Button>            
+              </Link>
+            </div>
+
           </Toolbar>
         </AppBar>
-        <Hidden mdUp>
+        {/* <Hidden mdUp>
           <Drawer
             variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
@@ -133,13 +142,13 @@ class ResponsiveDrawer extends React.Component {
           >
             {drawer}
           </Drawer>
-        </Hidden>
-        <main className={classes.content}>
+        </Hidden> */}
+        <main className={classes.content} style={{padding: 0}}>
           <div className={classes.toolbar} />
           <Switch>
             <Route exact path="/dashboard/items" exact render = {() => <Items />} />   
-            <Route exact path="/dashboard/trees" exact render = {() => <TreeList />} />  
-            <Route exact path="/dashboard/trees/:id" exact render = {() => <TreeDrawer />} />         
+            <Route exact path="/dashboard/projects" exact render = {() => <ProjectList />} />  
+            <Route exact path="/dashboard/projects/:id" exact render = {() => <ProjectDrawer />} />         
           </Switch>
         </main>
       </div>

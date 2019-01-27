@@ -6,18 +6,20 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Modal from '@material-ui/core/Modal'
 import { withStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
 
 import SortableTree from 'react-sortable-tree';
 // import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
 import MinimalTheme from 'react-sortable-tree-theme-minimal';
 
-import {getItems} from '../../data';
+import {getItems, getProject} from '../../data';
 import 'react-sortable-tree/style.css';
-import treeStyles from './TreeStyle';
+import treeStyles from './ProjectStyles';
 
 import ItemForm from '../items/ItemForm';
+import { Paper } from '@material-ui/core';
 
-class TreeDrawer extends Component {
+class ProjectDrawer extends Component {
 
     constructor(props) {
         super(props)
@@ -28,21 +30,8 @@ class TreeDrawer extends Component {
     
     componentDidMount() {
         var projectID = window.location.href.split('/').pop()
-        this.setState({treeData: getItems(projectID)})
+        this.setState({project: getProject(projectID)})
     }
-
-    // Likely broken as shit, needs more testing. Also probably not necessary at all
-    // findItemInTree(lookingFor, items) {
-    //     if(!items || items.length === 0) { return; }
-    //     for (var i = 0; i < items.length; i++) {
-    //         var item = items[i]
-    //         if (item.id === lookingFor.id) {
-    //             return item
-    //         } else {
-    //             return this.findItemInTree(lookingFor, item.children)
-    //         }
-    //     }
-    // }
 
     itemCreated(item) {
         this.toggleCreateItemModal()
@@ -108,7 +97,7 @@ class TreeDrawer extends Component {
 
     renderNodeView(node) {
         return (
-            <div style={treeStyles.nodeView}>
+            <div>
                 <h2>{node.title}</h2>
                 <p>{node.description}</p>
                 <p style={{whiteSpace: 'pre'}}>{this.getTreeReport(node, 0)}</p>
@@ -120,29 +109,38 @@ class TreeDrawer extends Component {
 
     renderProjectView() {
         return (
-            <div style={treeStyles.nodeView}>
-                {/* <h2>{node.title}</h2> */}
-                {/* <p>{node.description}</p> */}
-                {/* <p style={{whiteSpace: 'pre'}}>{this.getTreeReport(node, 0)}</p> */}
-                {/* <p>Total: ${this.getTreeCost(node)}</p> */}
-                <button onClick={() => {this.toggleCreateItemModal()}}>Add</button>
-            </div>  
+            <Paper style={treeStyles.projectView}>
+                {this.state.project && 
+                    <div style={{padding: 20}}>
+                        <div>{this.state.project.name}</div>
+                        <p>Total Cost: ${this.getTreeCost(this.state.project)}</p>
+                    </div>
+                }
+                {this.state.currentNode &&
+                    <div style={{padding: 20}}>
+                        {this.renderNodeView(this.state.currentNode.node)}                    
+                    </div>
+                }
+            </Paper>
         )
     }
 
-    render() {
-        const {classes} = this.props
+    renderTreeView() {
         return (
-            <div style={{height: "100%"}}>
+            <div style={{padding: 20, height: '100%'}}>
                 <FormControl margin="normal" required fullWidth>
                     <InputLabel htmlFor="query">Search</InputLabel>
                     <Input id="query" style={treeStyles.search} name="query" onChange={(e) => {this.onSearch(e)}} autoComplete="query" autoFocus />
                 </FormControl>
                 <SortableTree
-                    treeData={this.state.treeData}
-                    onChange={treeData => this.setState({ treeData })}
+                    treeData={this.state.project && this.state.project.children}
+                    onChange={treeData => {
+                        var project = this.state.project
+                        project.children = treeData
+                        this.setState({project: project})
+                    }}
                     canDrag={({ node }) => !node.noDragging}
-                    canDrop={({ nextParent }) => !nextParent || !nextParent.children}
+                    canDrop={({ nextParent }) => true}
                     theme={MinimalTheme}
                     generateNodeProps={(node) => ({
                         onClick: () => this.nodeClicked(node)
@@ -150,11 +148,22 @@ class TreeDrawer extends Component {
                     searchQuery={this.state.query}
                     onlyExpandSearchedNodes={true}
                 />
-                { this.state.currentNode ?
-                    this.renderNodeView(this.state.currentNode.node)  
-                    :
-                    this.renderProjectView()          
-                }
+            </div>
+        )
+    }
+
+    render() {
+        const {classes} = this.props
+        return (
+            <div style={{height: "100%"}}>
+                <Grid container style={{height: "100%"}}>
+                    <Grid item xs={2}>
+                        {this.renderProjectView()}                    
+                    </Grid>
+                    <Grid item xs={10}>
+                        {this.renderTreeView()}
+                    </Grid>                
+                </Grid>
 
                 <Modal
                     aria-labelledby="simple-modal-title"
@@ -165,17 +174,15 @@ class TreeDrawer extends Component {
                 >
                     <div className={classes.paper}>
                         <ItemForm createItem={this.itemCreated.bind(this)}/>
-                    </div>
-                    
+                    </div> 
                 </Modal>
-
             </div>
 
         )
     }
 }
 
-TreeDrawer.propTypes = {
+ProjectDrawer.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
@@ -189,4 +196,4 @@ const styles = theme => ({
     },
 });  
 
-export default withStyles(styles)(TreeDrawer);
+export default withStyles(styles)(ProjectDrawer);
