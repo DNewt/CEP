@@ -1,5 +1,3 @@
-import { withTheme } from "@material-ui/core";
-
 export default {
     nodeView: {
         border: 'solid',
@@ -14,11 +12,14 @@ export default {
     },
     projectView: {
         width: "100%",
-        height: "100%"
+        height: "100%",
+        overflow: 'scroll',
+        flex: "0 0 35%"
     },
     modal: {
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        padding: 20
     },
     projectItem: {
         backgroundColor: "#ffffff",
@@ -26,7 +27,15 @@ export default {
         borderRadius: 10,
         borderStyle: 'solid',
         borderWidth: 1,
-        borderColor: '#eeeeee',
-        color: 'black'
+        borderColor: '#dddddd',
+        color: 'black',
+    },
+    itemForm: {
+        margin: 'auto',
+        position: 'relative',
+    },
+    projectForm: {
+        margin: 'auto',
+        position: 'relative',
     }
 };

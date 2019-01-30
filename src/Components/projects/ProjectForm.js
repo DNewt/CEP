@@ -22,21 +22,24 @@ class ProjectForm extends Component {
     render () {
         return (
             <div>
-                <FormControl margin="normal" required fullWidth>
-                    <TextField 
-                        id="outlined-multiline-flexible"
-                        onChange={(e) => {this.onChange(e)}}
-                        value={this.state.name}
-                        label={"Project Name"}
-                        name={"name"}
-                        className={this.props.textField}
-                        variant="outlined"
-                    />
-                </FormControl>
+                <form className={this.props.form} onSubmit={() => {this.props.createProject(this.state)}}>
+                    <FormControl margin="normal" required fullWidth>
+                        <TextField 
+                            id="outlined-multiline-flexible"
+                            onChange={(e) => {this.onChange(e)}}
+                            value={this.state.name}
+                            label={"Project Name"}
+                            name={"name"}
+                            required={true}
+                            className={this.props.textField}
+                            variant="outlined"
+                        />
+                    </FormControl>
 
-                <Button variant="contained" color="primary" className={this.props.button} onClick={(e) => {this.props.createProject(this.state)}}>
-                    Create Project
-                </Button>
+                    <Button variant="contained" color="primary" className={this.props.button} type={"submit"}>
+                        Create Project
+                    </Button>
+                </form>
             </div>
         )
     }

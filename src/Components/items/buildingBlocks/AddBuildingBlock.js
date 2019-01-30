@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl'
 import TextField from '@material-ui/core/TextField'
-import Select from 'react-select'
-import {getDummyCostItemOptions} from '../../data'
 import { Button } from '@material-ui/core';
 
 class AddBuildingBlock extends Component {
@@ -25,7 +23,6 @@ class AddBuildingBlock extends Component {
 
     render () {
         const { classes } = this.props;
-        var options = getDummyCostItemOptions()
         return (
             <div>
                 <div>Building Block</div>

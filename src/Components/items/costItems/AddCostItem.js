@@ -6,9 +6,6 @@ import FormControl from '@material-ui/core/FormControl'
 import TextField from '@material-ui/core/TextField'
 import { Button } from '@material-ui/core';
 
-import Select from 'react-select'
-import {getDummyResourceOptions} from '../../data'
-import AddCostItemForm from './AddCostItemForm'
 
 class AddCostItem extends Component {
 
@@ -28,7 +25,6 @@ class AddCostItem extends Component {
 
     render () {
         const { classes } = this.props;
-        var options = getDummyResourceOptions()
         return (
             <div>
                 <div>Cost Item</div>

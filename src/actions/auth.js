@@ -1,39 +1,49 @@
-// TODO: convert all the alerts to dispatches
 import { Auth } from "aws-amplify";
 
-export function login(username, pass) {
+export function login(username, password) {
     return async dispatch => {
+        dispatch({type: 'LOGGING_IN'})
         try {
-            var user = {name: "Jake"} // await Auth.signIn(username, pass);
+            var user = {name: "Jake", organisationID: "1"} // await Auth.signIn(username, password);
             dispatch({
                 type: "LOGIN_SUCCESS",
                 user: user
             })
         } catch (e) {
+            dispatch({type: "LOGIN_FAILED"})
             alert(e);
         }
     }
 }
 
-export function checkLogin() {
+export function checkLoggedIn() {
     return async dispatch => {
+        dispatch({type: 'LOGGING_IN'})
         try {
-            await Auth.currentSession();
-            alert("user has authenticated")
+            var user = await Auth.currentSession();
+            dispatch({
+                type: "USER_LOGGED_IN",
+                user: user
+            })
         } catch(e) {
+            dispatch({
+                type: "USER_NOT_FOUND",
+                error: "No details found for this user"
+            })
             if (e !== 'No current user') {
-              alert(e);
+                console.log(e)
             }
         }
     }
 }
 
-export function register(user, pass) {
+// probably needs to do some different memery due to creating user through an admin?
+export function register(username, password) {
     return async dispatch => {
         try {
-            const newUser = await Auth.signUp({
-              username: user,
-              password: pass
+            const user = await Auth.signUp({
+              username: username,
+              password: password
             });
             alert("User registered")
         } catch (e) {

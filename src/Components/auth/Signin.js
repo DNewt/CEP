@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -13,13 +12,12 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { throws } from 'assert';
 
-import {login} from '../actions/auth'
-import {connect} from 'react-redux'
+import { login } from '../../actions/auth'
+import { connect } from 'react-redux'
 
 const styles = theme => ({
- 
+
   layout: {
     width: 'auto',
     display: 'block', // Fix IE11 issue.
@@ -71,8 +69,8 @@ class SignIn extends Component {
     this.props.login(this.state.email, this.state.password)
   }
 
-  render () {
-    const {classes} = this.props
+  render() {
+    const { classes } = this.props
 
     return (
       <React.Fragment>
@@ -86,7 +84,7 @@ class SignIn extends Component {
             <form className={classes.form} onSubmit={this.signIn}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                <Input id="email" name="email" onChange={(e) => {this.onChange(e)}} autoComplete="email" autoFocus />
+                <Input id="email" name="email" onChange={(e) => { this.onChange(e) }} autoComplete="email" autoFocus />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -94,7 +92,7 @@ class SignIn extends Component {
                   name="password"
                   type="password"
                   id="password"
-                  onChange={(e) => {this.onChange(e)}}
+                  onChange={(e) => { this.onChange(e) }}
                   autoComplete="current-password"
                 />
               </FormControl>
@@ -103,14 +101,14 @@ class SignIn extends Component {
                 label="Remember me"
               />
               {/* <Link to ="/dashboard"> */}
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {this.login()}}
-                  className={classes.submit}
-                >
-                  Sign in
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => { this.login() }}
+                className={classes.submit}
+              >
+                Sign in
                 </Button>
               {/* </Link> */}
             </form>

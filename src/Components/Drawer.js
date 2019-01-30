@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {LinkContainer} from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,7 +13,7 @@ import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 
-import {Switch, Route, Link} from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import Items from './items/Items';
 import ProjectList from './projects/ProjectList';
@@ -73,19 +73,19 @@ class ResponsiveDrawer extends React.Component {
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        <List style={{padding: 0}}>
+        <List style={{ padding: 0 }}>
           <Link to={"/dashboard/items"}>
-            <Button style={{width: "100%", height: "100%"}}> Items </Button>
+            <Button style={{ width: "100%", height: "100%" }}> Items </Button>
           </Link>
         </List>
         <Divider />
-        <List style={{padding: 0}}>
+        <List style={{ padding: 0 }}>
           <Link to={"/dashboard/projects"}>
-            <Button style={{width: "100%", height: "100%"}}> Projects </Button>
+            <Button style={{ width: "100%", height: "100%" }}> Projects </Button>
           </Link>
         </List>
         <Divider />
-        <List style={{padding: 0}}><Button style={{width: "100%", height: "100%"}}> Logout </Button></List>
+        <List style={{ padding: 0 }}><Button style={{ width: "100%", height: "100%" }}> Logout </Button></List>
         <Divider />
       </div>
     );
@@ -105,12 +105,12 @@ class ResponsiveDrawer extends React.Component {
             <Typography variant="h6" color="inherit" noWrap>
               Cost Estimation Program
             </Typography>
-            <div style={{marginLeft: 20}}>
-              <Link to={"/dashboard/projects"} style={{textDecoration: 'none', color: 'white'}}>
+            <div style={{ marginLeft: 20 }}>
+              <Link to={"/dashboard/projects"} style={{ textDecoration: 'none', color: 'white' }}>
                 <Button color="inherit">Projects</Button>
               </Link>
-              <Link to={"/dashboard/items"} style={{textDecoration: 'none', color: 'white'}}>
-                <Button color="inherit">Items</Button>            
+              <Link to={"/dashboard/items"} style={{ textDecoration: 'none', color: 'white' }}>
+                <Button color="inherit">Items</Button>
               </Link>
             </div>
 
@@ -143,12 +143,12 @@ class ResponsiveDrawer extends React.Component {
             {drawer}
           </Drawer>
         </Hidden> */}
-        <main className={classes.content} style={{padding: 0}}>
+        <main className={classes.content} style={{ padding: 0 }}>
           <div className={classes.toolbar} />
           <Switch>
-            <Route exact path="/dashboard/items" exact render = {() => <Items />} />   
-            <Route exact path="/dashboard/projects" exact render = {() => <ProjectList />} />  
-            <Route exact path="/dashboard/projects/:id" exact render = {() => <ProjectDrawer />} />         
+            <Route exact path="/dashboard/items" exact render={() => <Items />} />
+            <Route exact path="/dashboard/projects" exact render={() => <ProjectList />} />
+            <Route exact path="/dashboard/projects/:id" exact render={() => <ProjectDrawer />} />
           </Switch>
         </main>
       </div>

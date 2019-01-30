@@ -8,7 +8,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Amplify from 'aws-amplify';
 import config from './config';
-
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 
 Amplify.configure({
   Auth: {
@@ -34,10 +34,18 @@ Amplify.configure({
   }
 });
 
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: ['Roboto', 'Helvetica', 'Arial']
+  }
+})
+
 ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <MuiThemeProvider theme={theme}>
+          <App />
+        </MuiThemeProvider>
       </BrowserRouter>
     </Provider>, document.getElementById('root')
   );

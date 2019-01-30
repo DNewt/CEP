@@ -5,13 +5,11 @@ import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
-import AddResourceForm from '../resources/AddResourceForm';
-import AddCostItemForm from '../costItems/AddCostItemForm';
-import AddResource from '../resources/AddResource';
-import AddCostItem from '../costItems/AddCostItem';
-import AddBuildingBlock from '../buildingBlocks/AddBuildingBlock';
+import AddResource from './resources/AddResource';
+import AddCostItem from './costItems/AddCostItem';
+import AddBuildingBlock from './buildingBlocks/AddBuildingBlock';
 
-import {addItem} from '../../data';
+import {addDummyItem} from '../../data';
 
 class ItemForm extends Component {
 
@@ -29,7 +27,7 @@ class ItemForm extends Component {
     createItem(item) {
         item.children = []
         item.title = item.code
-        addItem(item)
+        addDummyItem(item)
     }
 
     renderForm () {

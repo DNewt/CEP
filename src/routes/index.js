@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Home from '../Components/Home';
-import Dashboard from '../Components/Dashboard';
+import Home from '../components/Home';
+import Dashboard from '../components/Dashboard';
 
 export default () => (
     <BrowserRouter>

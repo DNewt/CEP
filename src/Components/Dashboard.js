@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
-import Resources from './resources/Resources'
 import Drawer from './Drawer'
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class Dashboard extends Component {
 
@@ -17,4 +15,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default (Dashboard);

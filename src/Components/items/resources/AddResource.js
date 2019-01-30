@@ -7,8 +7,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import { Button } from '@material-ui/core';
 
-import AddResourceForm from './AddResourceForm'
-
 class AddResource extends Component {
 
     constructor(props) {
