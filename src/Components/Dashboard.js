@@ -1,18 +1,135 @@
-import React, {Component} from 'react'
-import Drawer from './Drawer'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { LinkContainer } from 'react-router-bootstrap';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Hidden from '@material-ui/core/Hidden';
+import Divider from '@material-ui/core/Divider';
+import MenuIcon from '@material-ui/icons/Menu';
+import Button from '@material-ui/core/Button';
 
-class Dashboard extends Component {
+import { Switch, Route, Link } from 'react-router-dom';
+
+import Items from './items/Items';
+import ProjectList from './projects/ProjectList';
+import ProjectDrawer from './projects/ProjectDrawer';
+import Navbar from './nav/Navbar';
+
+const drawerWidth = 240;
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    height: '100vh',
+    zIndex: 1,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex',
+    width: '100%',
+  },
+  navIconHide: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+    [theme.breakpoints.up('md')]: {
+      position: 'relative',
+    },
+  },
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: 0
+  },
+});
+
+class Dashboard extends React.Component {
+  state = {
+    mobileOpen: false,
+  };
+
+  handleDrawerToggle = () => {
+    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+  };
 
   render() {
+    const { classes, theme } = this.props;
+
+    const drawer = (
+      <div>
+        <div className={classes.toolbar} />
+        <Divider />
+        <List style={{ padding: 0 }}>
+          <Link to={"/dashboard/items"}>
+            <Button style={{ width: "100%", height: "100%" }}> Items </Button>
+          </Link>
+        </List>
+        <Divider />
+        <List style={{ padding: 0 }}>
+          <Link to={"/dashboard/projects"}>
+            <Button style={{ width: "100%", height: "100%" }}> Projects </Button>
+          </Link>
+        </List>
+        <Divider />
+        <List style={{ padding: 0 }}><Button style={{ width: "100%", height: "100%" }}> Logout </Button></List>
+        <Divider />
+      </div>
+    );
+
     return (
-      <div className="App">
-        <Drawer />
-        {/* <Switch>
-          <Route path="/dashboard/resources" component={Resources} />
-        </Switch> */}
+      <div className={classes.root}>
+        <Navbar/>
+        {/* <Hidden mdUp>
+          <Drawer
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={this.state.mobileOpen}
+            onClose={this.handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden smDown implementation="css">
+          <Drawer
+            variant="permanent"
+            open
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden> */}
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Switch>
+            <Route exact path="/dashboard/items" exact render={() => <Items />} />
+            <Route exact path="/dashboard/projects" exact render={() => <ProjectList />} />
+            <Route exact path="/dashboard/projects/:id" exact render={() => <ProjectDrawer />} />
+          </Switch>
+        </main>
       </div>
     );
   }
 }
 
-export default (Dashboard);
+Dashboard.propTypes = {
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles, { withTheme: true })(Dashboard);
