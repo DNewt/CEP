@@ -28,7 +28,7 @@ export function getDummyProject(projectID) {
 export var projects = [
     {
         id: "bb1",
-        name: "Project 1",
+        title: "Project 1",
         children: [
             {
                 id: "bb1",
@@ -122,7 +122,7 @@ export var projects = [
     },
     {
         id: "bb2",
-        name: "Project 2",
+        title: "Project 2",
         children: [
             {
                 id: "bb1",

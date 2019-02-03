@@ -11,6 +11,8 @@ export default function reducer(
         return {...state, user: action.user, loading: false}
       case 'LOGIN_FAILED':
         return {...state, loading: false, user: null, error: action.error}
+      case 'NEW_PASSWORD_REQUIRED':
+        return {...state, user: action.user, newPasswordRequired: true, loading: false}
       case 'USER_LOGGED_IN':
         return {...state, loading: false, user: action.user}
       case 'USER_NOT_FOUND':

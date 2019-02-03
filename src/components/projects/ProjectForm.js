@@ -11,7 +11,7 @@ class ProjectForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: ""
+            title: ""
         }
     }
 
@@ -27,9 +27,9 @@ class ProjectForm extends Component {
                         <TextField 
                             id="outlined-multiline-flexible"
                             onChange={(e) => {this.onChange(e)}}
-                            value={this.state.name}
+                            value={this.state.title}
                             label={"Project Name"}
-                            name={"name"}
+                            name={"title"}
                             required={true}
                             className={this.props.textField}
                             variant="outlined"

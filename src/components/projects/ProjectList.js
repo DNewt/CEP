@@ -42,7 +42,7 @@ class ProjectList extends Component {
     createProject (project) {
         project.id = uuidv4()
         project.children = []
-        this.props.createProject("orgID", project)
+        this.props.createProject("1", project)
         this.toggleCreateProjectModal()
     }
 
@@ -51,7 +51,7 @@ class ProjectList extends Component {
             <Grid item xs={12} sm={6} md={4} lg={3} key={key}>
                 <Link to={`/dashboard/projects/${project.id}`} style={{textDecoration: 'none'}}>
                     <div style={projectStyles.projectItem}>
-                        <h2>{project.name}</h2>
+                        <h2>{project.title}</h2>
                         <p>Total Cost: ${getTreeCost(project)}</p>
                     </div>
                 </Link>
@@ -101,7 +101,7 @@ class ProjectList extends Component {
 
     getFilteredProjects(query) {
         if (query) {
-            return this.props.projects.filter(project => project.name.includes(query))
+            return this.props.projects.filter(project => project.title.includes(query))
         } else {
             return this.props.projects
         }

@@ -18,7 +18,6 @@ import { Switch, Route, Link } from 'react-router-dom';
 import Items from './items/Items';
 import ProjectList from './projects/ProjectList';
 import ProjectDrawer from './projects/ProjectDrawer';
-import Navbar from './nav/Navbar';
 
 const drawerWidth = 240;
 
@@ -31,6 +30,13 @@ const styles = theme => ({
     position: 'relative',
     display: 'flex',
     width: '100%',
+  },
+  appBar: {
+    // position: 'absolute',
+    // marginLeft: 0,
+    // [theme.breakpoints.up('md')]: {
+    //   width: `calc(100% - ${drawerWidth}px)`,
+    // },
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
@@ -47,11 +53,11 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: 0
+    padding: theme.spacing.unit * 3,
   },
 });
 
-class Dashboard extends React.Component {
+class ResponsiveDrawer extends React.Component {
   state = {
     mobileOpen: false,
   };
@@ -86,7 +92,30 @@ class Dashboard extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Navbar/>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerToggle}
+              className={classes.navIconHide}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" noWrap>
+              Cost Estimation Program
+            </Typography>
+            <div style={{ marginLeft: 20 }}>
+              <Link to={"/dashboard/projects"} style={{ textDecoration: 'none', color: 'white' }}>
+                <Button color="inherit">Projects</Button>
+              </Link>
+              <Link to={"/dashboard/items"} style={{ textDecoration: 'none', color: 'white' }}>
+                <Button color="inherit">Items</Button>
+              </Link>
+            </div>
+
+          </Toolbar>
+        </AppBar>
         {/* <Hidden mdUp>
           <Drawer
             variant="temporary"
@@ -114,7 +143,7 @@ class Dashboard extends React.Component {
             {drawer}
           </Drawer>
         </Hidden> */}
-        <main className={classes.content}>
+        <main className={classes.content} style={{ padding: 0 }}>
           <div className={classes.toolbar} />
           <Switch>
             <Route exact path="/dashboard/items" exact render={() => <Items />} />
@@ -127,9 +156,9 @@ class Dashboard extends React.Component {
   }
 }
 
-Dashboard.propTypes = {
+ResponsiveDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Dashboard);
+export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);

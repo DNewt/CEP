@@ -15,7 +15,7 @@ class Home extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user) {
+    if (nextProps.user && nextProps.user.challengeName !== "NEW_PASSWORD_REQUIRED") {
       this.props.history.push("/dashboard")
     }
   }

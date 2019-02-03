@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { login } from '../../actions/auth'
+import { login, updatePassword } from '../../actions/auth'
 import { connect } from 'react-redux'
 
 const styles = theme => ({
@@ -69,6 +69,36 @@ class SignIn extends Component {
     this.props.login(this.state.email, this.state.password)
   }
 
+  updatePassword() {
+    if (this.state.newPassword && this.state.newPassword === this.state.newPasswordConfirmation) {
+      this.props.updatePassword(this.props.user, this.state.newPassword)
+    }
+  }
+
+  renderNewPasswordForm() {
+    return (
+      <div>
+        <p>You must update your password</p>
+        <InputLabel htmlFor="password">New Password</InputLabel>
+          <Input
+            name="newPassword"
+            type="password"
+            id="newPassword"
+            onChange={(e) => { this.onChange(e) }}
+            autoComplete="current-password"
+          />
+        <InputLabel htmlFor="password">Confirm Password</InputLabel>
+          <Input
+            name="newPasswordConfirmation"
+            type="password"
+            id="newPasswordConfirmation"
+            onChange={(e) => { this.onChange(e) }}
+            autoComplete="current-password"
+          />
+      </div>
+    )
+  }
+
   render() {
     const { classes } = this.props
 
@@ -96,16 +126,19 @@ class SignIn extends Component {
                   autoComplete="current-password"
                 />
               </FormControl>
-              <FormControlLabel
+              { this.props.newPasswordRequired && 
+                this.renderNewPasswordForm()
+              }
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              {/* <Link to ="/dashboard"> */}
+              <Link to ="/dashboard"> */}
               <Button
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={() => { this.login() }}
+                onClick={() => { (this.props.user && this.props.user.challengeName === "NEW_PASSWORD_REQUIRED") ? this.updatePassword() : this.login() }}
                 className={classes.submit}
               >
                 Sign in
@@ -124,12 +157,14 @@ SignIn.propTypes = {
 };
 
 const mapDispatchToProps = {
-  login
+  login,
+  updatePassword
 }
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
+    newPasswordRequired: state.auth.newPasswordRequired
   }
 }
 
